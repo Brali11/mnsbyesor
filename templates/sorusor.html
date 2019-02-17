@@ -1,0 +1,93 @@
+{%extends 'base.html'%}
+{%block title%}Soru sor{%endblock%}
+{%block body%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Duyuru</button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{duyuru.baslik}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          {%if duyuru.resim%}
+          <a href="{{duyuru.resim_görüntüle}}"><img src="{{duyuru.duyuru_resim_görüntüle}}" alt="Duyuru resim" class="img-fluid"></a>
+          {%endif%}
+        {{duyuru.duyuru|linebreaks}}
+          <br/>
+          {{duyuru.publishing_date}}
+                    <br/>
+
+          <a><strong>Duyuru kimler için geçerli?</strong> {{duyuru.duyuru_sinif}}</a><br/>
+      </div>
+      <div class="modal-footer">
+          Gönderen:{{duyuru.isim}} {{duyuru.soyisim}}
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+                    <hr/><h1 class="display-4" style="text-align:center">Soru sor:</h1><hr/><br/>
+{% if messages %}
+<ul>
+<div class="alert alert-success" role="alert">
+    {%for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+    {%endfor%}
+
+</div>
+</ul>
+{%endif%}
+
+<ul>
+<form action="/sorumvar" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+
+    <div class="form-group">
+        <label for="exampleInputbaslik1"><strong>Başlık</strong></label>
+        <input type="text" class="form-control" id="exampleInputbaslik1" aria-describedby="baslikHelp" placeholder="Başlık:" name="baslik" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputicerik1"><strong>İçerik</strong></label>
+        <textarea rows="4" class="form-control" id="exampleInputicerik1" aria-describedby="icerikHelp" placeholder="Soru hakkında içerik:" name="icerik"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Ders</strong></label><br/>
+        <select name="ders" >
+            <option selected>Matematik</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputKitap1"><strong>Kitap ya da Deneme</strong></label>
+        <input type="text" class="form-control" id="exampleInputKitap1" aria-describedby="KitapHelp" placeholder="Kitap:" name="kitap">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputSayfaNo1"><strong>SayfaNo</strong></label>
+        <input type="text" class="form-control" id="exampleInputSayfaNo1" aria-describedby="SayfaNoHelp" placeholder="SayfaNo:" name="sayfano">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputSoruNo1"><strong>SoruNo</strong></label>
+        <input type="text" class="form-control" id="exampleInputSoruNo1" aria-describedby="SoruNoHelp" placeholder="SoruNo:" name="soruno">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputResim1"><strong>Resim</strong></label>
+        <input type="file" class="form-control" value="Resim seçin" id="exampleInputResim1" aria-describedby="ResimHelp" placeholder="Resim:" name="resim">
+    </div>
+
+    <input type="submit" class="btn btn-outline-info" value="Gönder"/>
+</form>
+</ul>
+{%endblock%}

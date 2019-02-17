@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+{%block title%}Sorular{%endblock%}
+{%block body%}
+
+ <div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow p-3 mb-5  rounded">
+              <div class="card-body">
+                <h3 class="card-title" style="text-align:center">Duyuru:</h3>
+
+              </div>
+
+
+              <ul class="list-group list-group-flush"><br/>
+                <li class="list-group-item"><strong>{{duyuru.baslik}}: </strong><hr/>
+                    {%if duyuru.resim%}
+                    <a href="{{duyuru.resim_görüntüle}}"><img src="{{duyuru.duyuru_resim_görüntüle}}" alt="Duyuru resim" class="img-fluid"></a>
+                    {%endif%}
+                    <br/>{{duyuru.duyuru}}</li><br/>
+              </ul>
+                {{duyuru.isim}} {{duyuru.soyisim}}
+                <br/>
+          {{duyuru.publishing_date}}
+                    <br/>
+
+          <a><strong>Duyuru kimler için geçerli?</strong> {{duyuru.duyuru_sinif}}</a><br/>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,101 @@
+{%extends 'base.html'%}
+{%block title%}Sorular{%endblock%}
+{%block body%}
+{% if messages %}
+<div class="alert alert-success" role="alert">
+    {%for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+    {%endfor%}
+
+</div>
+{%endif%}
+
+<!-- Button trigger modal -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Duyuru</button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{duyuru.baslik}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          {%if duyuru.resim%}
+          <a href="{{duyuru.resim_görüntüle}}"><img src="{{duyuru.duyuru_resim_görüntüle}}" alt="Duyuru resim" class="img-fluid"></a>
+          {%endif%}
+        {{duyuru.duyuru|linebreaks}}
+          <br/>
+          {{duyuru.publishing_date}}
+                    <br/>
+
+          <a><strong>Duyuru kimler için geçerli?</strong> {{duyuru.duyuru_sinif}}</a><br/>
+      </div>
+      <div class="modal-footer">
+          Gönderen:{{duyuru.isim}} {{duyuru.soyisim}}
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+{%for i in soru%}
+</br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card border-primary shadow-lg p-3 mb-5  rounded">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{i.baslik}}</strong><small>   {{i.publishing_date}}</small></h5>
+                    <strong>İçerik:</strong><br/>
+                    <p class="card-text"><strong>{{i.icerik|linebreaks|truncatechars:150}}</strong></p>
+                    <strong>Kullanıcı:</strong><br/>
+                    <p class="card-text"><small>{{i.isim}} {{i.soyisim}}</small></p>
+
+                    <p class="card-text"><small>{{i.kullanici_adi}}</small></p>
+                    <strong>Ders:</strong><br/>
+                    <p class="card-text"><small>{{i.ders}}</small></p>
+                    {%if i.sorupuan%}
+                        <strong>Puan:</strong><br/>
+                        <p class="card-text"><small>{{i.sorupuan}}</small></p>
+                    {%endif%}
+                    <a href="{{i.get_absolute_url}}" class="btn btn-primary">İncele</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endfor%}<br/><hr/>
+<div class="container">
+    <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="pagination">
+                    <span class="step-links ">
+                        {%if soru.has_previous%}
+                            <a href="?sayfa={{soru.previous_page_number}}">Geri</a>
+                        {%endif%}
+                        <span class="current">
+                            Sayfa{{soru.number}} / {{soru.paginator.num_pages}}.
+                        </span>
+                        {%if soru.has_next%}
+                            <a href="?sayfa={{soru.next_page_number}}">İleri</a>
+                        {%endif%}
+                    </span>
+                </div>
+            </div>
+    </div>
+</div>
+<hr/>
+<br/>
+{%endblock%}

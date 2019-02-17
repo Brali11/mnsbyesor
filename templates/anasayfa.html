@@ -1,0 +1,130 @@
+{%extends 'base.html'%}
+
+{%block title%}Anasayfa{%endblock%}
+{%block body%}
+{% if messages %}
+<div class="alert alert-success" role="alert">
+    {%for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+    {%endfor%}
+
+</div>
+{%endif%}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Duyuru</button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{duyuru.baslik}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          {%if duyuru.resim%}
+          <a href="{{duyuru.resim_görüntüle}}"><img src="{{duyuru.duyuru_resim_görüntüle}}" alt="Duyuru resim" class="img-fluid"></a>
+          {%endif%}
+        {{duyuru.duyuru|linebreaks}}
+          <br/>
+          {{duyuru.publishing_date}}
+                    <br/>
+
+          <a><strong>Duyuru kimler için geçerli?</strong> {{duyuru.duyuru_sinif}}</a><br/>
+      </div>
+      <div class="modal-footer">
+          Gönderen:{{duyuru.isim}} {{duyuru.soyisim}}
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<h1 class="display-4" style="text-align:center">En son paylaşılan soru:</h1><hr/>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card border-primary card shadow-lg p-3 mb-5  rounded">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{soru.baslik}}</strong><small>   {{soru.publishing_date}}</small></h5>
+                    <p class="card-text"><strong>{{soru.icerik|linebreaks|truncatechars:150}}</strong></p>
+                    <p class="card-text"><small>{{soru.isim}} {{soru.soyisim}}</small></p>
+                    <p class="card-text"><small>{{soru.kullanici_adi}}</small></p>
+                    <p class="card-text"><small>{{soru.ders}}</small></p>
+                    {%if soru.sorupuan%}
+                        <strong>Puan:</strong><br/>
+                        <p class="card-text"><small>{{soru.sorupuan}}</small></p>
+                    {%endif%}
+                    <a href="{{soru.get_absolute_url}}" class="btn btn-primary">İncele</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+<h1 class="display-4" style="text-align:center">En yüksek puanlı soru(lar):</h1><hr/>
+{%for i in max_puan_soru%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card border-primary card shadow-lg p-3 mb-5  rounded">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{i.baslik}}</strong><small>   {{i.publishing_date}}</small></h5>
+                    <p class="card-text"><strong>{{i.icerik|linebreaks|truncatechars:150}}</strong></p>
+                    <p class="card-text"><small>{{i.isim}} {{i.soyisim}}</small></p>
+                    <p class="card-text"><small>{{i.kullanici_adi}}</small></p>
+                    <p class="card-text"><small>{{i.ders}}</small></p>
+                    {%if i.sorupuan%}
+                        <strong>Puan:</strong><br/>
+                        <p class="card-text"><small>{{i.sorupuan}}</small></p>
+                    {%endif%}
+                    <a href="{{i.get_absolute_url}}" class="btn btn-primary">İncele</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+{{endfor}}
+{%endfor%}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow p-3 mb-5  rounded">
+              <div class="card-body">
+                <h5 class="card-title">Toplam soru sayısı:{{soru_sayısı}}</h5>
+                    <hr/>
+                  <h5 class="card-title">Kullanıcıların paylaştığı soru sayıları:</h5>
+
+              </div>
+
+                {%for i in kullanicisorulari%}
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>{{i.isim}} {{i.soyisim}}:</strong>        {{i.soru_sayisi}}</li>
+              </ul>
+                {%endfor%}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

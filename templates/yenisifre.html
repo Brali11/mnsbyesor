@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+
+{%block title%}Anasayfa{%endblock%}
+{%block body%}
+
+<div class="alert alert-success" role="alert">
+    {%for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+    {%endfor%}
+
+</div>
+
+<form action="/yeni_sifre" method="post">
+    {%csrf_token%}
+    <div class="form-group">
+        <label for="exampleInputKullaniciadi1"><strong>Kullanıcı adı</strong></label>
+        <input type="text" class="form-control" id="exampleInputKullaniciadi1" aria-describedby="KullaniciadiHelp" placeholder="Kullaniciadi:" name="kullaniciadi" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputParola1"><strong>Mail adresinizdeki parola</strong></label>
+        <input type="text" class="form-control" id="exampleInputParola1" aria-describedby="ParolaHelp" placeholder="Parola:" name="parola" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputYenisifre1"><strong>Yeni şifreniz</strong></label>
+        <input type="text" class="form-control" id="exampleInputYenisifre1" aria-describedby="YenisifreHelp" placeholder="Yenisifre:" name="yenisifre" >
+    </div>
+    <input type="submit" class="btn btn-outline-info" value="Gönder"/>
+
+
+</form>
+{%endblock%}

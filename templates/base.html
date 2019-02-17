@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <link rel="manifest" href="/manifest.json" />
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+        <script>
+          var OneSignal = window.OneSignal || [];
+          OneSignal.push(function() {
+            OneSignal.init({
+              appId: "3865b563-1d29-443d-a8da-7e6b459608c8",
+            });
+          });
+        </script>
+
+        <meta charset="UTF-8" name="viewport" content="width=device-width,inital-scale=1">
+        <title>{%block title%}MNSB'ye sor{%endblock%}</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    </div>
+</head>
+<body>
+
+
+        {%include 'header.html'%}
+
+        {% block body%}
+
+        {% endblock %}
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

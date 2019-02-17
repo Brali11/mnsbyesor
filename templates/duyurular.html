@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+{%block title%}Soru sor{%endblock%}
+{%block body%}
+<h1 class="display-4" style="text-align:center">Tüm duyurular:</h1><hr/>
+
+{%for i in duyurular%}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow p-3 mb-5  rounded">
+
+
+
+
+              <ul class="list-group list-group-flush"><br/>
+                <li class="list-group-item"><strong>{{i.baslik}}: </strong><br/>{{i.duyuru|truncatechars:150}}<br/><br/>{{i.publishing_date}}</li><br/>
+                  <li class="list-group-item">{{i.isim}} {{i.soyisim}}</li>
+              </ul>
+
+                <a href="{{i.get_absolute_url}}" class="btn btn-primary">İncele</a>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{%endblock%}

@@ -1,0 +1,70 @@
+{%extends 'base.html'%}
+
+{%block title%}Güncelle{%endblock%}
+{%block body%}
+{% if messages %}
+<div class="alert alert-success" role="alert">
+    {%for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+    {%endfor%}
+
+</div>
+{%endif%}
+<blockquote class="blockquote">
+    <h1 class="display-4" style="text-align:center">Veri güncelle:</h1>
+  <footer class="blockquote-footer" style="text-align:center">Güncellemek istemediğiniz yerleri boş bırakın! <cite title="Source Title"></cite></footer>
+</blockquote>
+
+<form action="/veri_güncelle" method="post">
+    {%csrf_token%}
+    <div class="form-group">
+        <label for="exampleInputİsim1"><strong>İsim</strong></label>
+        <input type="text" class="form-control" id="exampleInputİsim1" aria-describedby="İsimHelp" placeholder="İsim:" name="isim" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputSoyisim1"><strong>Soyisim</strong></label>
+        <input type="text" class="form-control" id="exampleInputSoyisim1" aria-describedby="SoyisimHelp" placeholder="Soyisim:" name="soyisim" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputKullanıcı_Adı1"><strong>Kullanıcı Adı</strong></label>
+        <input type="text" class="form-control" id="exampleInputKullanıcı_Adı1" aria-describedby="Kullanıcı_AdıHelp" placeholder="Kullanıcı Adı:" name="kullaniciadi" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputParola1"><strong>Parola</strong></label>
+        <input type="text" class="form-control" id="exampleInputParola1" aria-describedby="ParolaHelp" placeholder="Parola:" name="parola" >
+    </div>
+    <div class="form-group">
+        <label><strong>Okul</strong></label><br/>
+        <select name="okul" >
+            <option selected>Sancaktepe Anadolu Lisesi</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label><strong>Sınıf</strong></label><br/>
+        <select name="sinif" >
+            <option selected>{{sinif}}</option>
+            <option>12-A</option>
+            <option>12-B</option>
+            <option>12-C</option>
+            <option>12-D</option>
+            <option>12-E</option>
+            <option>12-F</option>
+            <option>12-G</option>
+            <option>12-H</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label for="exampleInputNumara1"><strong>Numara</strong></label>
+        <input type="text" class="form-control" id="exampleInputNumara1" aria-describedby="NumaraHelp" placeholder="Numara:" name="numara" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputMail1"><strong>Mail</strong></label>
+        <input type="text" class="form-control" id="exampleInputMail1" aria-describedby="MailHelp" placeholder="Mail:" name="mail" >
+    </div>
+    <input type="submit" class="btn btn-outline-info" value="Gönder"/>
+
+
+</form>
+
+{%endblock%}

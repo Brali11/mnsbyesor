@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{%block title%}Giriş yap{%endblock%}
+{%block body%}
+
+<h1 class="display-4" style="text-align:center">Giriş yap:</h1><hr/>
+{% if messages %}
+<div class="alert alert-success" role="alert">
+    {%for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+    {%endfor%}
+
+</div>
+{%endif%}
+<form action="/giris_yap" method="post">
+    {%csrf_token%}
+    <div class="form-group">
+        <label for="exampleInputKullanıcı_Adı1"><strong>Kullanıcı Adı</strong></label>
+        <input type="text" class="form-control" id="exampleInputKullanıcı_Adı1" aria-describedby="Kullanıcı_AdıHelp" placeholder="Kullanıcı Adı:" name="kullaniciadi" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputParola1"><strong>Parola</strong></label>
+        <input type="password" class="form-control" id="exampleInputParola1" aria-describedby="ParolaHelp" placeholder="Parola:" name="parola" >
+    </div>
+    <input type="submit" class="btn btn-outline-info" value="Gönder"/>
+</form>
+<strong><a href="{%url 'kayitol'%}"> Kayıt ol.</a></strong><br/>
+<strong><a href="{%url 'sifremiunuttum'%}"> Şifremi unuttum.</a></strong>
+
+{%for i in girishataları%}
+<div class="alert alert-success" role="alert">
+    {{i}}<br/>
+</div>
+{%endfor%}
+{%for i in giris%}
+{{i}}<br/>
+{%endfor%}
+<br/>
+<br/>
+{%endblock%}

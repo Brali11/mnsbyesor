@@ -1,0 +1,170 @@
+{%extends 'base.html'%}
+{%block title%}Soru detay{%endblock%}
+{%block body%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Duyuru</button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{duyuru.baslik}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          {%if duyuru.resim%}
+          <a href="{{duyuru.resim_görüntüle}}"><img src="{{duyuru.duyuru_resim_görüntüle}}" alt="Duyuru resim" class="img-fluid"></a>
+          {%endif%}
+        {{duyuru.duyuru|linebreaks}}
+          <br/>
+          {{duyuru.publishing_date}}
+                    <br/>
+
+          <a><strong>Duyuru kimler için geçerli?</strong> {{duyuru.duyuru_sinif}}</a><br/>
+      </div>
+      <div class="modal-footer">
+          Gönderen:{{duyuru.isim}} {{duyuru.soyisim}}
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card border-info">
+                <div class="card-body">
+                    <h1 class="display-4" style="text-align:center">Soru:</h1><hr/>
+
+
+
+                    {%if soru.image%}
+                        <a href="{{soru.resim_görüntüle}}"><img src="{{soru.image.url}}" class="img-thumbnail"/></a>
+                    {%endif%}
+                    <h5 class="card-title"><strong>{{soru.baslik}}</strong><small>{{soru.publishing_date}}</small></h5>
+                    <p class="card-text">{{soru.icerik|linebreaks}}</p>
+                    <strong>Ders:</strong><p class="card-text"><small>{{soru.ders}}</small></p>
+                    <strong>Kitap:</strong><p class="card-text"><small>{{soru.kitap}}</small></p>
+                    <strong>Sayfa no:</strong><p class="card-text"><small>{{soru.sayfano}}</small></p>
+                    <strong>Soru no:</strong><p class="card-text"><small>{{soru.soruno}}</small></p>
+                    <strong>Kullanıcı:</strong><p class="card-text"><small>{{soru.isim}} {{soru.soyisim}}</small></p>
+
+                    {%if soru.sorupuan%}
+                        <strong>Puan:</strong><br/>
+                        <p class="card-text"><small>{{soru.sorupuan}}</small></p>
+                    {%endif%}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+                    <h1 class="display-4" style="text-align:center">Cevaplar:</h1><hr/><br/>
+<hr/>
+{%for i in cevap%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 ">
+            <div class="card card border-success">
+                <div class="card-body ">
+                    <h5 style="text-align:center"><strong>Cevap:</strong></h5>
+                    <hr/>
+                    {%if i.cevapresmi%}
+                    <a href="{{i.cevap_resim_görüntüle}}"><img src="{{i.cevapresmi.url}}" class="img-fluid"/></a>
+                    {%endif%}<br/>
+                    <strong>Kullanıcı:</strong><p class="card-title "><strong>{{i.isim}} {{i.soyisim}}</strong></p>
+                    <strong>Cevap:</strong><p class="card-text">{{i.cevap|linebreaks}}</p>
+                    <small>{{i.publishing_date}}</small>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr/>
+{%endfor%}
+
+<hr/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow p-3 mb-5  rounded">
+              <div class="card-body">
+                  <h2 class="card-title" style="text-align:center">Puan ver:</h2>
+
+                  <form action="{%url 'sorudetay' id=soru.id%}" method="get">
+    {%csrf_token%}
+    <div class="form-group">
+        <select name="puan" >
+            <option selected>yok</option>
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+        </select>
+    </div>
+
+    <input type="submit" class="btn btn-outline-info" value="Gönder"/>
+</form>
+              </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow p-3 mb-5  rounded">
+              <div class="card-body">
+                <h5 class="card-title">Cevap yaz:</h5>
+              </div>
+                <form action="{%url 'sorudetay' id=soru.id%}" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><div class="form-group">
+                <label for="exampleInputCevap1"><strong>Cevap</strong></label>
+                <input type="text" class="form-control" id="exampleInputCevap1" aria-describedby="CevapHelp" placeholder="Cevap:" name="cevap">
+                </div></li>
+                <li class="list-group-item"><div class="form-group">
+                <label for="exampleInputResim1"><strong>Resim</strong></label>
+                <input type="file" class="form-control" value="Resim seçin" id="exampleInputResim1" aria-describedby="ResimHelp" placeholder="Resim:" name="resim">
+                </div></li>
+              </ul>
+
+            <input type="submit" class="btn btn-outline-info" value="Gönder"/>
+            </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

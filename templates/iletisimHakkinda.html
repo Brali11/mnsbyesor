@@ -1,0 +1,82 @@
+{%extends 'base.html'%}
+
+{%block title%}İletişim-Hakkında{%endblock%}
+{%block body%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Duyuru</button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{duyuru.baslik}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          {%if duyuru.resim%}
+          <a href="{{duyuru.resim_görüntüle}}"><img src="{{duyuru.duyuru_resim_görüntüle}}" alt="Duyuru resim" class="img-fluid"></a>
+          {%endif%}
+        {{duyuru.duyuru|linebreaks}}
+          <br/>
+          {{duyuru.publishing_date}}
+                    <br/>
+
+          <a><strong>Duyuru kimler için geçerli?</strong> {{duyuru.duyuru_sinif}}</a><br/>
+      </div>
+      <div class="modal-footer">
+          Gönderen:{{duyuru.isim}} {{duyuru.soyisim}}
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+
+
+<h1 class="display-4" style="text-align:center">Hakkında:</h1><hr/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow p-3 mb-5  rounded">
+              <div class="card-body">
+                <p class="card-text">Bu web sitesi Matematik dersi paylaşımlarına uygundur.Sancaktepe Anadolu Lisesi öğrencilerine açıktır
+                ve ağırlıklı olarak üniversite hazırlık sürecinde takıldığımız sorulara cevap bulmak içindir.Sorulara diğer kullanıcıların yanı sıra Matematik öğretmeni Müzeyyen
+                Nuray Sezer Buz cevap vermeye çalışacaktır.
+                    <br/>İyi çalışmalar...</p>
+              </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Proje: </strong>Müzeyyen Nuray Sezer Buz</li>
+                    <li class="list-group-item"><strong>Web sitesi: </strong>Ali Bayraktar</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<h1 class="display-4" style="text-align:center">İletişim:</h1><hr/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card shadow p-3 mb-5  rounded">
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Müzeyyen Nuray Sezer Buz: </strong> muzeyyennuraysezer@gmail.com</li>
+                <li class="list-group-item"><strong>Ali Bayraktar: </strong> bralibrbr@gmail.com</li>
+              </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}
